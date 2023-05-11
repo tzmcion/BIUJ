@@ -71,7 +71,7 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
     <div className='QuestionCard'>
         <h5>Dodane przez: <span className={`${user === "@GUAdmin" ? "red" : "green"}`}>{user === "@GUAdmin" ? "Admin" : user}</span></h5>
         <h4 className='Question'>|ID:{id}|  {question}</h4>
-        {file && <img className="image" src={file} alt="logo..." />}
+        {file && file!=="null" && <img className="image" src={file} alt="logo..." />}
         {type === 'closed' && <div className='Answers'>
             {renderAnswers()}
         </div>}
