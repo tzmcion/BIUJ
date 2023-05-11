@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import "./QuestionCard.scss"
 
@@ -38,9 +38,13 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
         setIsChecked(true);
     }
 
+    useEffect(()=>{
+        setIsChecked(false);
+    },[question])
+
   return (
     <div className='QuestionCard'>
-        <h5>Dodane przez: {user}</h5>
+        <h5>Dodane przez: <span className={`${user === "Admin" ? "red" : "green"}`}>{user}</span></h5>
         <h4 className='Question'>|ID:{id}|  {question}</h4>
         {type === 'closed' && <div className='Answers'>
             {renderAnswers()}

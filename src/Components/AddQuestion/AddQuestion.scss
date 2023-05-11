@@ -2,12 +2,15 @@
     margin-top: 40px;
     padding: 10px;
     width:1000px;
-    height: fit-content;
+    max-height: 660px;
     display: flex;
     flex-direction: column;
     background-color: white;
     box-shadow: 2px 2px 6px black;
     border-radius: 5px;
+    transition: 1s;
+    overflow: hidden;
+    position: relative;
     h2{
         width:90%;
         text-align: center;
@@ -27,6 +30,11 @@
         }
         input{
             width: 200px;
+        }
+        input[type="radio"]{
+            width: fit-content;
+            margin-left: -2px;
+            margin-right: 10px;
         }
     }
     .radio{
@@ -66,4 +74,29 @@
         transform: scale(1.05);
     }
 
+    .Arrow_Open{
+        width:50px;
+        height: 50px;
+        position: absolute;
+        top:10px;
+        right:40px;
+        transition: 0.5s;
+    }   
+
+    .Arrow_Open:hover{
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+    .op_ar{
+        transform: rotate(90deg);
+    }
+
+    .cl_ar{
+        transform: rotate(270deg);
+    }
+}
+
+.AQclosed{
+    max-height: 50px;
 }
