@@ -1,0 +1,131 @@
+.card{
+    margin-top: 40px;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 10px;
+    width:400px;
+    height: 240px;
+    border-radius: 10px;
+    background-color: white;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    transition: 0.3s;
+    h1{
+        margin: 20px auto;
+        margin-bottom: 0;
+        font-size: 28px;
+        font-weight: 700;
+        text-align: center;
+        font-style: normal;
+        width:360px;
+        color: #DD614A;
+        text-transform: uppercase;
+    }
+    h2{
+        margin: 0px auto;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        color: #06ba63;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        width: 360px;
+    }
+    h3{
+        color: rgb(33,34,39);
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        width:360px;
+        margin: 0px auto;
+    }
+    h4{
+        color: rgb(255,116,59);
+        width:360px;
+        height:30px;
+        line-height: 24px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        margin: 0px auto;
+        text-transform: uppercase;
+    }
+    .band{
+        position: absolute;
+        width:190px;
+        height: 28px;
+        left:-50px;
+        top:185px;
+        background-color: black;
+        transform: rotate(45deg);
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.878);
+        transition: 0.2s;
+    }
+    .Rotater{
+        position: absolute;
+        width:160px;
+        height: 160px;
+        object-fit: contain;
+        left:310px;
+        top:150px;
+        transition: 1.5s ease;
+        // animation: handle_back 1s ease forwards;
+        .img1{
+            position: absolute;
+            width:80px;
+            height: 80px;
+            object-fit: contain;
+            left:0px;
+            top:0px;
+        }
+        .img2{
+            position: absolute;
+            width:80px;
+            height: 80px;
+            object-fit: cover;
+            left:80px;
+            top:80px;
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.card:hover{
+    cursor: pointer;
+    transform: scale(1.04);
+    .Rotater{
+        // animation: handle_rotation 1s ease forwards;
+        transform: rotate(180deg);
+    }
+    .band{
+        background-color: #06ba63;
+        box-shadow: 0px 0px 8px #06ba63;
+    }
+}
+
+@keyframes handle_rotation{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes handle_back{
+    0%{
+        transform: rotate(180deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}

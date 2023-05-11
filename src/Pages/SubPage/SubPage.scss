@@ -1,0 +1,22 @@
+.SubData{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:1080px;
+    margin: 0 auto;
+    margin-bottom: 80px;
+    .ID{
+        font-family: 'Montserrat';
+        font-weight: 700;
+        font-size: 40px;
+        margin-top: 20px;
+        width:100%;
+        display: flexb;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        text-transform: uppercase;
+        color:rgba(221, 97, 74, 1)
+    }
+}
+
