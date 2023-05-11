@@ -1,0 +1,38 @@
+@media only screen and (max-width:1100px){
+    .AddQuestion{
+        width:700px;
+    }
+}
+
+@media only screen and (max-width: 750px){
+    .AddQuestion{
+        width:500px;
+        .Arrow_Open{
+            top:20px;
+            width:30px;
+            height:30px;
+
+        }
+        h2{
+            font-size: 20px;
+        }
+        .Button_Add{
+            padding: 5px;
+            p{
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .AddQuestion{
+        width:400px;
+    }
+}
+
+@media only screen and (max-width: 450px){
+    .AddQuestion{
+        width:300px;
+    }
+}

@@ -1,6 +1,9 @@
 import React, { ReactElement, useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import "./QuestionCard.scss"
+import "./media.scss"
 
 interface QuestionProps{
     type: "closed" | "open",
@@ -10,10 +13,12 @@ interface QuestionProps{
     comment:string
     id:number
     user:string
+    database:string
+    file:string|null
     handleNext: () => void
 }
 
-export default function QuestionCard({type,answers,correct_answer,comment,question,id,user,handleNext}:QuestionProps):ReactElement {
+export default function QuestionCard({type,answers,correct_answer,comment,question,id,user,handleNext,database,file}:QuestionProps):ReactElement {
 
     const form = useForm({
         defaultValues:{
@@ -40,16 +45,37 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
 
     useEffect(()=>{
         setIsChecked(false);
-    },[question])
+        if(database === 'programowanie'){
+
+        }
+    },[question,database])
+
+    const renderComment = () =>{
+        if(database === 'programowanie'){
+            const parts = comment.split('```');
+            return(
+            <div className='Comment'>
+                <h3>{parts[0]}</h3>
+                <SyntaxHighlighter language='cpp' style={dark}>
+                    {parts[1]}
+                </SyntaxHighlighter>
+            </div>
+            )
+        }
+        else{
+            return <h3 className='Comment'>Komentarz: {comment}</h3>
+        }
+    }
 
   return (
     <div className='QuestionCard'>
-        <h5>Dodane przez: <span className={`${user === "Admin" ? "red" : "green"}`}>{user}</span></h5>
+        <h5>Dodane przez: <span className={`${user === "@GUAdmin" ? "red" : "green"}`}>{user === "@GUAdmin" ? "Admin" : user}</span></h5>
         <h4 className='Question'>|ID:{id}|  {question}</h4>
+        {file && <img className="image" src={file} alt="logo..." />}
         {type === 'closed' && <div className='Answers'>
             {renderAnswers()}
         </div>}
-        {isChecked && comment.length > 0 && <h3 className='Comment'>Komentarz: {comment}</h3>}
+        {isChecked && comment.length > 0 && renderComment()}
         <div className='For_Buttons'></div>
         <div className='Check_Answer Button' onClick={handleCheck}><p>Check Answer</p></div>
         <div className='Next_Question Button' onClick={handleNext}><p>Next Question</p></div>

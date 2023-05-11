@@ -18,12 +18,13 @@ import dna_gif from '../../Assets/dna.gif'
 import linux from '../../Assets/linux.png'
 
 import './Home.scss'
+import "./media.scss"
 
 export default function Home() {
     useTitle("Bioinformatyka UJ");
 
   return (
-    <div>
+    <div style={{paddingBottom:"80px"}}>
         <Header/>
         <div className='Title'>
                 <div className='Data'>
@@ -33,8 +34,8 @@ export default function Home() {
                     <h4>
                         Rób testy, dodawaj pytania i zredukuj stres przed-egzaminowy
                     </h4>
+                    <img src={School} alt="School img" />
                 </div>
-                <img src={School} alt="School img" />
         </div>
         <div className='cards'>
             <Card name="Biochemia" test_date={new Date("Jun 22, 2023")} to='biochemia' img={[microscope,biochem]}/>
@@ -44,7 +45,7 @@ export default function Home() {
             <Card name="B Ewolucyjna" test_date={new Date("Jun 23, 2023")} to='ewolucyjna' img={[dna_png,dna_gif]}/>
             <Card name="GNU/LINUX" test_date={new Date("Mar 25, 2006")} to='gnu' img={[linux,linux]}/>
         </div>
-        <Footer/>
+        {/* <Footer/> */}
     </div>
   )
 }
