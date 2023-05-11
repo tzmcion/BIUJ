@@ -1,0 +1,67 @@
+@media only screen and (max-width:1550px){
+    .cards{
+        width:900px;
+    }
+    .Title{
+        .Data{
+            width:1200px;
+            h3{
+                font-size: 32px;
+                margin-left: 20px;
+            }
+            h4{
+                margin-left: 20px;
+            }
+
+        }
+    }
+}
+
+@media only screen and (max-width:1100px){
+    .Title{
+        img{
+            display: none;
+        }
+        .Data{
+            width:90%;
+            text-align: center;
+        }
+    }
+}
+
+@media only screen and (max-width:950px){
+    .cards{
+        width:500px;
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width:700px){
+    .Title{
+        height: 160px;
+        .Data{
+            h3{
+                font-size: 20px;
+            }
+            h4{
+                font-size: 16px;
+            }
+
+        }
+    }
+}
+
+@media only screen and (max-width:500px){
+    .cards{
+        width:fit-content;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .card{
+        
+        transform: scale(0.8);
+    }
+    .card:hover{
+        transform: scale(0.9);
+    }
+}

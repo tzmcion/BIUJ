@@ -1,0 +1,47 @@
+@media only screen and (max-width:1100px){
+    .QuestionCard{
+        width:700px;
+        .Button{
+            padding: 4px;
+            p{
+                font-size: 14px;
+            }
+        }
+        .Next_Question{
+            right: 160px;
+        }
+        .Question{
+            font-size: 16px;
+        }
+        .Answer{
+            font-size: 12px;
+        }
+    }
+}
+
+@media only screen and (max-width:750px){
+    .QuestionCard{
+        width:500px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .QuestionCard{
+        width:400px;
+    }
+}
+
+@media only screen and (max-width: 450px){
+    .QuestionCard{
+        width:300px;
+        .Button{
+            padding: 4px;
+            p{
+                font-size: 12px;
+            }
+        }
+        .Next_Question{
+            right: 130px;
+        }
+    }
+}
