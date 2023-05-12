@@ -1,4 +1,4 @@
-import React, {ReactElement, useState, useEffect, useCallback} from 'react'
+import React, {ReactElement, useState, useEffect, useCallback, useRef} from 'react'
 import { useParams } from 'react-router'
 import axios from 'axios';
 import Header from '../../Components/Header/Header';
@@ -25,11 +25,17 @@ interface Data{
 
 export default function SubPage():ReactElement {
     const { id } = useParams();
+    const timeout = useRef<any>(0);
     useTitle(`${id?.toLocaleUpperCase()} / Bioinformatyka UJ`);
+    const timeout_id = useRef<string | undefined>(id);
 
     const [data,setData] = useState<Data | null>();
 
     const handleNext = useCallback(()=>{
+      if(timeout_id.current !== id){
+        clearTimeout(timeout.current);
+        timeout.current = 0;
+      }
       setData({
         type: "load",
         nick:"",
@@ -60,7 +66,10 @@ export default function SubPage():ReactElement {
                 img:null,
                 correct:""
               })
-              setTimeout(()=>{handleNext()},2000)
+              if(timeout.current === 0){
+                timeout_id.current = id;
+                timeout.current = setTimeout(()=>{handleNext(); timeout.current = 0;},2000)
+              }
             }else{
               setData(res.data!);
             }
@@ -80,7 +89,10 @@ export default function SubPage():ReactElement {
             img:null,
             correct:""
           })
-          setTimeout(()=>{handleNext()},2000)
+          if(timeout.current === 0){
+            timeout_id.current = id;
+            timeout.current = setTimeout(()=>{handleNext(); timeout.current = 0;},2000)
+          }
         });
     },[id])
 
