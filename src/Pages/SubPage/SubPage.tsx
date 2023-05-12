@@ -20,7 +20,7 @@ interface Data{
   nick:string,
   question:string,
   img:string|null
-  type:"closed" | "open"
+  type:"closed" | "open" | "load" | "error"
 }
 
 export default function SubPage():ReactElement {
@@ -30,10 +30,35 @@ export default function SubPage():ReactElement {
     const [data,setData] = useState<Data | null>();
 
     const handleNext = useCallback(()=>{
+      setData({
+        type: "load",
+        nick:"",
+        id:2,
+        question:"",
+        answer1:"",
+        answer2:"",
+        answer3:"",
+        answer4:"",
+        comment:"",
+        img:null,
+        correct:""
+      })
         axios.get(`https://server-alpha-ecru.vercel.app/get_question/${id}`).then(res =>{
           if(res.data){
             if("ERROR" in res.data){
-              setData(null);
+              setData({
+                type: "error",
+                nick:"",
+                id:2,
+                question:"",
+                answer1:"",
+                answer2:"",
+                answer3:"",
+                answer4:"",
+                comment:"",
+                img:null,
+                correct:""
+              })
             }else{
               setData(res.data!);
             }

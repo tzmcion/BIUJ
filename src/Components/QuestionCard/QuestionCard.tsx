@@ -5,8 +5,11 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import "./QuestionCard.scss"
 import "./media.scss"
 
+import julia from '../../Assets/julia-name.gif'
+import error from '../../Assets/Error.gif'
+
 interface QuestionProps{
-    type: "closed" | "open",
+    type: "closed" | "open" | "load" | "error",
     question:string
     answers: [string,string,string,string]
     correct_answer:string
@@ -69,7 +72,17 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
 
   return (
     <div className='QuestionCard'>
-        <h5>Dodane przez: <span className={`${user === "@GUAdmin" ? "red" : "green"}`}>{user === "@GUAdmin" ? "Admin" : user}</span></h5>
+        {type === "load" && <div className='Load'>
+            <img src={julia} alt="julia"/>
+            <h5>Ładowanie...</h5>
+        </div>}
+        {type === "error" && <div className='Error'>
+            <img src={error} alt="error" />
+            <h5>Wewnętrzny błąd serwera...</h5>
+            <h4>Kiedyś się to naprawi :P</h4>
+            <h4>Narazie wróć na stronę domową i odśwież :)</h4> 
+        </div>}
+        {type !== "load" && type!=="error" && <><h5>Dodane przez: <span className={`${user === "@GUAdmin" ? "red" : "green"}`}>{user === "@GUAdmin" ? "Admin" : user}</span></h5>
         <h4 className='Question'>|ID:{id}|  {question}</h4>
         {file && file!=="null" && <img className="image" src={file} alt="logo..." />}
         {type === 'closed' && <div className='Answers'>
@@ -82,7 +95,7 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
         <div className='Report_Question Button' title='Jeżeli uważasz, 
         że pytanie jest niepoprawne, zgłoś je. Pytanie zostaną usunięte może :)'>
             <p>Report</p>
-        </div>
+        </div></>}
     </div>
   )
 }
