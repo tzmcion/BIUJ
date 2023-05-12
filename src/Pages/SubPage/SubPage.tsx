@@ -43,7 +43,8 @@ export default function SubPage():ReactElement {
         img:null,
         correct:""
       })
-        axios.get(`https://server-alpha-ecru.vercel.app/get_question/${id}`).then(res =>{
+      //`https://server-alpha-ecru.vercel.app/get_question/${id}`
+        axios.get(`https://server-alpha-ecru.vercel.app/get_question/${id}`,{timeout:5000}).then(res =>{
           if(res.data){
             if("ERROR" in res.data){
               setData({
@@ -59,10 +60,27 @@ export default function SubPage():ReactElement {
                 img:null,
                 correct:""
               })
+              setTimeout(()=>{handleNext()},2000)
             }else{
               setData(res.data!);
             }
         }
+        }).catch(err =>{
+          console.log("Timeout reached, attempting again");
+          setData({
+            type: "error",
+            nick:"",
+            id:2,
+            question:"",
+            answer1:"",
+            answer2:"",
+            answer3:"",
+            answer4:"",
+            comment:"",
+            img:null,
+            correct:""
+          })
+          setTimeout(()=>{handleNext()},2000)
         });
     },[id])
 
@@ -84,7 +102,11 @@ export default function SubPage():ReactElement {
           }
           axios.post("https://server-alpha-ecru.vercel.app/add",data).then(res=>{
             console.log("data added!");
-          });
+          }).catch(err =>{
+              console.log('server rejected adding question, attempting again')
+              setTimeout(()=>{handleAdd(question,answers,nick,comment,type,correct_answer,file)},15000);
+            }
+          );
         }
       }else{
         const data = {
@@ -99,6 +121,9 @@ export default function SubPage():ReactElement {
         }
         axios.post("https://server-alpha-ecru.vercel.app/add",data).then(res=>{
           console.log("data added!");
+        }).catch(err =>{
+          console.log('server rejected adding question, attempting again')
+          setTimeout(()=>{handleAdd(question,answers,nick,comment,type,correct_answer,file)},15000);
         });
       }
     }
