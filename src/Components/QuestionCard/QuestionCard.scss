@@ -105,4 +105,21 @@
         margin: 10px auto;
         border:2px dotted black;
     }
+
+    .Error,.Load{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        img{
+            width:150px;
+            height: 150px;
+            object-fit: contain;
+        }
+        h5,h4{
+            margin: 5px;
+            font-size: 20px;
+            font-weight: 500;
+        }
+    }
 }
