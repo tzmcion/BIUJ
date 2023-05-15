@@ -50,7 +50,7 @@ export default function SubPage():ReactElement {
         correct:""
       })
       //`https://server-alpha-ecru.vercel.app/get_question/${id}`
-        axios.get(`https://server-alpha-ecru.vercel.app/get_question/${id}`,{timeout:5000}).then(res =>{
+        axios.get(`https://serverbi.herokuapp.com/get_question/${id}`,{timeout:5000}).then(res =>{
           if(res.data){
             if("ERROR" in res.data){
               setData({
@@ -112,7 +112,7 @@ export default function SubPage():ReactElement {
             table:id,
             file:reader.result
           }
-          axios.post("https://server-alpha-ecru.vercel.app/add",data).then(res=>{
+          axios.post("https://serverbi.herokuapp.com/add",data).then(res=>{
             console.log("data added!");
           }).catch(err =>{
               console.log('server rejected adding question, attempting again')
@@ -131,10 +131,12 @@ export default function SubPage():ReactElement {
           table:id,
           file:null
         }
-        axios.post("https://server-alpha-ecru.vercel.app/add",data).then(res=>{
+        axios.post("https://serverbi.herokuapp.com/add",data).then(res=>{
           console.log("data added!");
         }).catch(err =>{
-          console.log('server rejected adding question, attempting again')
+          console.log('server rejected adding question, attempting again');
+          console.log('your data: ');
+          console.log(JSON.stringify(data));
           setTimeout(()=>{handleAdd(question,answers,nick,comment,type,correct_answer,file)},15000);
         });
       }
