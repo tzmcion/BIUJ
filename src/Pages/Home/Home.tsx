@@ -38,9 +38,9 @@ export default function Home() {
                 </div>
         </div>
         <div className='cards'>
-            <Card name="Biochemia" test_date={new Date("Jun 30, 2023")} to='biochemia' img={[microscope,biochem]}/>
+            <Card name="Biochemia" test_date={new Date("Jun 29, 2023")} to='biochemia' img={[microscope,biochem]}/>
             <Card name="Ilościowa BK" test_date={new Date("Jun 19, 2023")} to='ibk' img={[cells,cells_gif]}/>
-            <Card name="Programowanie" test_date={new Date("May 19, 2023")} to='programowanie' img={[programming,coding]}/>
+            <Card name="Programowanie" test_date={new Date("Jun 3, 2023")} to='programowanie' img={[programming,coding]}/>
             <Card name="Analiza" test_date={new Date("Jun 21, 2023")} to='analiza' img={[math_png,calculus]}/>
             <Card name="B Ewolucyjna" test_date={new Date("Jun 23, 2023")} to='ewolucyjna' img={[dna_png,dna_gif]}/>
             <Card name="GNU/LINUX" test_date={new Date("May 28, 2023")} to='gnu' img={[linux,linux]}/>
