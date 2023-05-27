@@ -42,7 +42,7 @@ export default function AddQuestion({handleAdd}:AddProps):ReactElement {
     const form = useForm({
         defaultValues:{
             type:"closed",
-            right_answer:3
+            right_answer:-1
         },
         mode:"onChange"
     })
@@ -109,74 +109,78 @@ export default function AddQuestion({handleAdd}:AddProps):ReactElement {
     }
 
     const onAdd = ():void => {
-        const right_answer = answers[form.watch()['right_answer']-1];
-        if(question.length > 0){
-            if(form.watch()["type"] === "closed"){
-                if(answers[0].length > 0 && answers[1].length > 0 && answers[2].length > 0 && answers[3].length > 0){
+        if(form.watch()['right_answer']>=0 || form.watch()["type"] !== "closed"){
+            const right_answer = answers[form.watch()['right_answer']-1];
+            if(question.length > 0){
+                if(form.watch()["type"] === "closed"){
+                    if(answers[0].length > 0 && answers[1].length > 0 && answers[2].length > 0 && answers[3].length > 0){
+                        handleAdd(question,answers,userName,comment,form.watch()['type'],right_answer,selectedFile);
+                        clearAll();
+                        //Feedback
+                    }else{
+                        alert("Nie wszystkie odpowiedzi są uzupełnione...")
+                    }
+                }else{
                     handleAdd(question,answers,userName,comment,form.watch()['type'],right_answer,selectedFile);
                     clearAll();
-                    //Feedback
-                }else{
+
                     //Feedback
                 }
             }else{
-                handleAdd(question,answers,userName,comment,form.watch()['type'],right_answer,selectedFile);
-                clearAll();
-
-                //Feedback
+                alert("Zapomniałeś wpisać pytanie...")
             }
         }else{
-            //Feedback
+            alert("Zapomniałeś zaznaczyc odpoweidź ...")
         }
     }
 
   return (
     <div className={`AddQuestion ${isOpen ? "AQclosed" : ""}`}>
-        <h2>ADD QUESTION</h2>
+        <h2>DODAJ PYTANIE</h2>
         <div className='two '>
-            <h4>User Name: </h4>
+            <h4>Twój nick z BaCy: </h4>
             <input placeholder='USER_NAME' value={userName} name="username" onChange={handleChange}/>
         </div>
         <div className='radio'>
-            <h4>Question Type: </h4>
+            <h4>Typ Pytania: </h4>
             <input type="radio" value="closed" {...register("type")} />
             <h4>Closed</h4>
             <input type="radio" value="open" {...register("type")} />
             <h4>Open</h4>
         </div>
         <div className="two">
-            <h4>Question:</h4>
+            <h4>Treść Pytania:</h4>
             <textarea value={question} onChange={handleChange} name="question"/>
         </div>
         <div className="two">
             <input type="radio" {...register("right_answer")} value={1} disabled={form.watch()["type"] === "open"}/>
-            <h4>Answer.1:</h4>
+            <h4>Odpowiedź nr1:</h4>
             <textarea value={answers[0]} onChange={handleChange} name="answer1" disabled={form.watch()["type"] === "open"}/>
         </div>
         <div className="two">
             <input type="radio" {...register("right_answer")} value={2} disabled={form.watch()["type"] === "open"}/>
-            <h4>Answer.2:</h4>
+            <h4>Odpowiedź nr2:</h4>
             <textarea value={answers[1]} onChange={handleChange} name="answer2" disabled={form.watch()["type"] === "open"}/>
         </div>
         <div className="two">
             <input type="radio" {...register("right_answer")} value={3} disabled={form.watch()["type"] === "open"}/>
-            <h4>Answer.3:</h4>
+            <h4>Odpowiedź nr3:</h4>
             <textarea value={answers[2]} onChange={handleChange} name="answer3" disabled={form.watch()["type"] === "open"}/>
         </div>
         <div className="two">
             <input type="radio" {...register("right_answer")} value={4} disabled={form.watch()["type"] === "open"}/>
-            <h4>Answer.4:</h4>
+            <h4>Odpowiedź nr4:</h4>
             <textarea value={answers[3]} onChange={handleChange} name="answer4" disabled={form.watch()["type"] === "open"}/>
         </div>
         <div className="two">
-            <h4>Comment (optoional): </h4>
+            <h4>Komentarz -- napisz coś co tłumaczy to pytanie: </h4>
             <textarea value={comment} onChange={handleChange} name="comment"/>
         </div>
         <div className="two">
-            <h4>Add Image (optional)</h4>
+            <h4>Dodaj zdjęcie (nieduże rozmiary i TYLKO gdy trzeba) </h4>
             <input type='file' onChange={e => handleImageChange(e.target.files)} />
         </div>
-        <div className='Button_Add' onClick={onAdd}><p>Add</p></div>
+        <div className='Button_Add' onClick={onAdd}><p>Dodaj</p></div>
         <img src={arrow} alt="arrow_pen" className={`Arrow_Open ${!isOpen ? "op_ar" : "cl_ar"}`} onClick={()=>{setISOpen(!isOpen)}} />
     </div>
   )

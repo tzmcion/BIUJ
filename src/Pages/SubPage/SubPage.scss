@@ -18,5 +18,21 @@
         text-transform: uppercase;
         color:rgba(221, 97, 74, 1)
     }
+    .RESET{
+        outline: none;
+        border: none;
+        background-color: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 400;
+        background-color: rgba(18, 100, 172, 0.609);
+        transition: 0.5s;
+        padding: 5px;
+        margin-bottom: 0;
+        &:hover{
+            background-color: aquamarine;
+        }
+    }
 }
 

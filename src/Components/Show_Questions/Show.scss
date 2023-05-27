@@ -1,0 +1,32 @@
+.rects{
+    width:90%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px auto;
+    flex-wrap: wrap;
+    div{
+        margin: 5px;
+        width:50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(63, 63, 63);
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover{
+            transform: scale(1.05);
+            background-color: rgb(255, 198, 100);
+        }
+    }
+    .green{
+        background-color: rgb(102, 154, 51);
+    }
+}
