@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import axios from 'axios';
 import Header from '../../Components/Header/Header';
 import QuestionCard from '../../Components/QuestionCard/QuestionCard';
+import Show from '../../Components/Show_Questions/Show';
 
 import "./SubPage.scss"
 import "./media.scss"
@@ -30,6 +31,10 @@ export default function SubPage():ReactElement {
     const timeout_id = useRef<string | undefined>(id);
 
     const [data,setData] = useState<Data | null>();
+    const [quest_id,set_quest_id] = useState<number>(1);
+    const [first_id,set_first_id] = useState<number>(0);
+    const [reset,setReset] = useState<boolean>(false);
+    const [max,setMax] = useState<number>(0);
 
     const handleNext = useCallback(()=>{
       if(timeout_id.current !== id){
@@ -49,10 +54,10 @@ export default function SubPage():ReactElement {
         img:null,
         correct:""
       })
-      //`https://server-alpha-ecru.vercel.app/get_question/${id}`
-        axios.get(`https://serverbi.herokuapp.com/get_question/${id}`,{timeout:5000}).then(res =>{
+      //`https://serverbi.herokuapp.com/get_question/${id}/0`
+        axios.get(`https://serverbi.herokuapp.com/get_question/${id}/${quest_id}`,{timeout:5000}).then(res =>{
           if(res.data){
-            if("ERROR" in res.data){
+            if("ERROR" in res.data || "bad_id" in  res.data){
               setData({
                 type: "error",
                 nick:"",
@@ -66,11 +71,9 @@ export default function SubPage():ReactElement {
                 img:null,
                 correct:""
               })
-              if(timeout.current === 0){
-                timeout_id.current = id;
-                timeout.current = setTimeout(()=>{handleNext(); timeout.current = 0;},2000)
-              }
+              console.log(`https://serverbi.herokuapp.com/get_question/${id}/${quest_id}`)
             }else{
+              set_quest_id(res.data.id);
               setData(res.data!);
             }
         }
@@ -89,12 +92,10 @@ export default function SubPage():ReactElement {
             img:null,
             correct:""
           })
-          if(timeout.current === 0){
-            timeout_id.current = id;
-            timeout.current = setTimeout(()=>{handleNext(); timeout.current = 0;},2000)
-          }
         });
-    },[id])
+    },[id,quest_id])
+
+
 
 
     const handleAdd = (question:string,answers:Array<string>,nick:string,comment:string,type:string,correct_answer:string,file:File | null | undefined):void =>{
@@ -143,8 +144,37 @@ export default function SubPage():ReactElement {
     }
 
     useEffect(()=>{
-      handleNext();
-    },[handleNext])
+      axios.get(`https://serverbi.herokuapp.com/quantity/${id!.toLowerCase()}`).then(res =>{
+        if('quantity' in res.data && 'f_id' in res.data){
+          set_quest_id(res.data.f_id);
+          setMax(res.data.quantity);
+          set_first_id(res.data.f_id);
+        }else{
+          console.log('bad_id');
+          console.log(`https://serverbi.herokuapp.com/quantity/${id!.toLowerCase()}`)
+        }
+      })
+    },[id])
+
+    useEffect(()=>{
+      if(max !== 0){
+        handleNext();
+      }
+    },[max,handleNext,reset]);
+
+    const handleRandom = ():void =>{
+      set_quest_id(0);
+      setReset(true);
+    }
+
+    const handle_but_next = ():void =>{
+      set_quest_id(curr => curr +1);
+      setReset(true);
+    }
+
+    const handle_swap = (id:number):void =>{
+      set_quest_id(id);
+    }
 
   return (
     <div>
@@ -162,9 +192,12 @@ export default function SubPage():ReactElement {
               user={data.nick}
               database={id}
               file={data.img}
-              handleNext={handleNext}
+              handleNext={handle_but_next}
+              handleRandom={handleRandom}
               />
         }
+        <Show  first={first_id} length={max} handleClick={handle_swap}/>
+        <button className='RESET' onClick={()=>{localStorage.setItem("compleated",JSON.stringify([]))}}>RESET PROGRESS</button>
               <AddQuestion handleAdd={handleAdd}/>
       </div>
     </div>

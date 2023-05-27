@@ -34,11 +34,11 @@
 @media only screen and (max-width: 450px){
     .QuestionCard{
         width:300px;
-        .Button{
-            padding: 4px;
-            p{
-                font-size: 12px;
-            }
+        .Rand{
+            right:220px;
+        }
+        .Next{
+            right:110px;
         }
         .Next_Question{
             right: 130px;

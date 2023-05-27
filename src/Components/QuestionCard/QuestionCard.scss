@@ -1,3 +1,7 @@
+$bgColor: rgb(43, 151, 55);
+$textHoverColor: white;
+$debug: false;
+
 .QuestionCard{
     font-family: 'Montserrat';
     width:1000px;
@@ -19,14 +23,56 @@
         width: 94%;
         margin: 20px auto;
         .Answer{
+            position: relative;
+            margin-top: 10px;
             display: flex;
             flex-direction: row;
+            padding: 6px;
+            box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.611);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .Answer_anim{
+            &:hover{
+                cursor: pointer;
+                background-color: rgba(172, 255, 47, 0.238);
+                transition: 0.2s;
+                &:before{
+                    content: "";
+                    width:20px;
+                    border-radius: 10px;
+                    position: absolute;
+                    transform: rotate(20deg);
+                    height:150%;
+                    top:-10px;
+                    background-color: rgba(93, 93, 93, 0.239);
+                    animation: something 0.5s ease forwards;
+                }
+            }
+        }
+
+        .ans_green{
+            background-color: rgba(106, 255, 47, 0.342);
+        }
+
+        .ans_yell{
+            background-color: rgba(255, 94, 0, 0.616);
         }
         h4{
+            width:100%;
             margin: 5px;
             margin-left: 10px;
         }
     }
+
+    .breakpoint{
+        width:90%;
+        height:2px;
+        border-radius: 4px;
+        background-color: rgb(207, 207, 207);
+        margin: 0px auto;
+    }
+
     h5{
         width:80%;
         margin: 10px auto;
@@ -39,51 +85,17 @@
         font-size: 14px;
         width:90%;
         color: rgba(0, 0, 0, 0.742);
-        margin:10px auto
-    }
-
-    .Check_Answer{
-        background-color: greenyellow;
-        right:10px;
-    }
-
-    .Next_Question{
-        background-color: rgb(84, 240, 235);
-        right: 200px;
-    }
-
-    .Report_Question{
-        background-color: red;
-        color:white;
-        p{
-            font-weight: 700 !important;
+        margin:10px auto;
+        pre{
+            white-space: pre-wrap;
+            word-wrap: none;
+            height: fit-content;
+            width: 100%;
         }
-    }
-
-    .Button{
-        position: absolute;
-        border-radius: 10px;
-        height: fit-content;
-        width: fit-content;
-        padding: 10px;
-        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.735);
-        transition: 0.3s;
-        bottom: 10px;
-        p{
-            font-weight: 500;
-            font-size: 18px;
-            padding: 0px;
-            margin: 0px;
-            text-transform: uppercase;
-        }
-    }
-
-    .Button:hover{
-        cursor: pointer;
-        transform: scale(1.05);
     }
 
     .For_Buttons{
+        position: relative;
         width:100%;
         height: 60px;
     }
@@ -106,7 +118,7 @@
         border:2px dotted black;
     }
 
-    .Error,.Load{
+    .Error, .Load{
         display: flex;
         align-items: center;
         justify-content: center;
@@ -121,5 +133,171 @@
             font-size: 20px;
             font-weight: 500;
         }
+    }
+
+    .button {
+        position: absolute;
+        bottom: 10px;
+        padding: 10px;
+        display: inline-block;
+        z-index: 1;
+        overflow: if($debug, unset, hidden);
+        
+        text-decoration: none;
+        
+        font-family: sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        
+        color: $bgColor;
+        
+        // border: 0.15em solid $bgColor;
+        box-shadow: 0px 0px 4px $bgColor;
+        border-radius: 5px;
+        
+        transition: 4s;
+        cursor: pointer;
+    }
+
+    .Check{
+        right:10px;
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            top: -1.5em;
+            
+            z-index: -1;
+            
+            width: 200%;
+            aspect-ratio: 1;
+            
+            border: if($debug, inherit, none);
+            border-radius: 40%;
+            
+            background-color: rgba($bgColor, 0.25);
+            
+            transition: 3s;
+        }
+        
+        &:before {
+            left: -80%;
+            transform: translate3d(0, 5em, 0) rotate(-340deg);
+        }
+        
+        &:after {
+            right: -80%;
+            transform: translate3d(0, 5em, 0) rotate(390deg);
+        }
+        
+        &:hover,
+        &:focus {
+            color: $textHoverColor;
+            
+            &:before,
+            &:after {
+                transform: none;
+                background-color: rgba($bgColor, 0.75);
+            }
+        }
+    }
+
+    .Next{
+        right:130px;
+        color:#169dca;
+        box-shadow: 0px 0px 4px #169dca;
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            top: -1.5em;
+            
+            z-index: -1;
+            
+            width: 200%;
+            aspect-ratio: 1;
+            
+            border: if($debug, inherit, none);
+            border-radius: 40%;
+            
+            background-color: rgba(#169dca, 0.25);
+            
+            transition: 3s;
+        }
+        
+        &:before {
+            left: -80%;
+            transform: translate3d(0, 5em, 0) rotate(-340deg);
+        }
+        
+        &:after {
+            right: -80%;
+            transform: translate3d(0, 5em, 0) rotate(390deg);
+        }
+        
+        &:hover,
+        &:focus {
+            color: $textHoverColor;
+            
+            &:before,
+            &:after {
+                transform: none;
+                background-color: rgba(#169dca, 0.75);
+            }
+        }
+    }
+
+    .Rand{
+        right:260px;
+        color: #ef7721;
+        box-shadow: 0px 0px 4px #ef7721;
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            top: -1.5em;
+            
+            z-index: -1;
+            
+            width: 200%;
+            aspect-ratio: 1;
+            
+            border: if($debug, inherit, none);
+            border-radius: 40%;
+            
+            background-color: rgba(#ef7721, 0.25);
+            
+            transition: 3s;
+        }
+        
+        &:before {
+            left: -80%;
+            transform: translate3d(0, 5em, 0) rotate(-340deg);
+        }
+        
+        &:after {
+            right: -80%;
+            transform: translate3d(0, 5em, 0) rotate(390deg);
+        }
+        
+        &:hover,
+        &:focus {
+            color: $textHoverColor;
+            
+            &:before,
+            &:after {
+                transform: none;
+                background-color: rgba(#ef7721, 0.75);
+            }
+        }
+    }
+}
+
+@keyframes something{
+    0%{
+        left:110%;
+    }
+    100%{
+        left:90%;
     }
 }

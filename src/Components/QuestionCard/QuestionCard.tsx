@@ -19,9 +19,10 @@ interface QuestionProps{
     database:string
     file:string|null
     handleNext: () => void
+    handleRandom: () => void
 }
 
-export default function QuestionCard({type,answers,correct_answer,comment,question,id,user,handleNext,database,file}:QuestionProps):ReactElement {
+export default function QuestionCard({type,answers,correct_answer,comment,question,id,user,handleNext,database,file,handleRandom}:QuestionProps):ReactElement {
 
     const form = useForm({
         defaultValues:{
@@ -35,14 +36,26 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
 
     const renderAnswers = ():any =>{
         return answers.map((answer,index) => {
-            return <div key={index} className='Answer'>
+            return <div key={index} className={`Answer ${isChecked === false ? "Answer_anim" : ""} ${isChecked && answer === correct_answer ? "ans_green" : isChecked && answer === form.watch()['answer'] ? "ans_yell" : ""}`}  onClick={()=>{isChecked === false && form.setValue("answer",answer);handleCheck()}}>
                     <input type='radio' value={answer} disabled={isChecked} {...register("answer")} />
-                    <h4 style={{backgroundColor: (isChecked && answer === correct_answer) ? "green" : (isChecked && answer === form.watch()['answer']) ? "yellow" : 'transparent'}} key={index}>{index}. {answer}</h4>
+                    <h4 key={index}>{answer}</h4>
             </div>
         })
     }
 
     const handleCheck = ():void =>{
+        let compleated = localStorage.getItem("compleated");
+        if(compleated){
+            const arr = JSON.parse(compleated);
+            if(arr){
+                if(form.watch()['answer'] === correct_answer || type==='open'){
+                    arr.push(id);
+                }
+            }
+            localStorage.setItem("compleated",JSON.stringify(arr));
+        }else{
+            localStorage.setItem("compleated",JSON.stringify([]));
+        }
         setIsChecked(true);
     }
 
@@ -66,7 +79,7 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
             )
         }
         else{
-            return <h3 className='Comment'>Komentarz: {comment}</h3>
+            return <h3 className='Comment'>Komentarz: <pre>{comment}</pre></h3>
         }
     }
 
@@ -79,23 +92,21 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
         {type === "error" && <div className='Error'>
             <img src={error} alt="error" />
             <h5>Wewnętrzny błąd serwera...</h5>
-            <h4>Kiedyś się to naprawi :P</h4>
-            <h4>Narazie wróć na stronę domową i odśwież :)</h4> 
+            <h4>Najprawdopodobniej wyczerpałeś/aś pulę pytań</h4>
+            <h4>Nic na to nie poradzimy :c. Może inne pytanie lub refresh page?</h4> 
         </div>}
         {type !== "load" && type!=="error" && <><h5>Dodane przez: <span className={`${user === "@GUAdmin" ? "red" : "green"}`}>{user === "@GUAdmin" ? "Admin" : user}</span></h5>
         <h4 className='Question'>|ID:{id}|  {question}</h4>
+        <div className='breakpoint'></div>
         {file && file!=="null" && <img className="image" src={file} alt="logo..." />}
         {type === 'closed' && <div className='Answers'>
             {renderAnswers()}
         </div>}
         {isChecked && comment.length > 0 && renderComment()}
         <div className='For_Buttons'></div>
-        <div className='Check_Answer Button' onClick={handleCheck}><p>Check Answer</p></div>
-        <div className='Next_Question Button' onClick={handleNext}><p>Next Question</p></div>
-        <div className='Report_Question Button' title='Jeżeli uważasz, 
-        że pytanie jest niepoprawne, zgłoś je. Pytanie zostaną usunięte może :)'>
-            <p>Report</p>
-        </div></>}
+        <div className="button Check" onClick={handleCheck}>Sprawdź</div>
+        <div className="button Next" onClick={handleNext}>Następne</div>
+        <div className="button Rand" onClick={handleRandom}>Losowe</div></>}
     </div>
   )
 }
