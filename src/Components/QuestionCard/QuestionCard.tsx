@@ -38,7 +38,7 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
         return answers.map((answer,index) => {
             return <div key={index} className={`Answer ${isChecked === false ? "Answer_anim" : ""} ${isChecked && answer === correct_answer ? "ans_green" : isChecked && answer === form.watch()['answer'] ? "ans_yell" : ""}`}  onClick={()=>{isChecked === false && form.setValue("answer",answer);handleCheck()}}>
                     <input type='radio' value={answer} disabled={isChecked} {...register("answer")} />
-                    <h4 key={index}>{answer}</h4>
+                    <h4 key={index}><pre>{answer}</pre></h4>
             </div>
         })
     }
@@ -96,7 +96,7 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
             <h4>Nic na to nie poradzimy :c. Może inne pytanie lub refresh page?</h4> 
         </div>}
         {type !== "load" && type!=="error" && <><h5>Dodane przez: <span className={`${user === "@GUAdmin" ? "red" : "green"}`}>{user === "@GUAdmin" ? "Admin" : user}</span></h5>
-        <h4 className='Question'>|ID:{id}|  {question}</h4>
+        <h4 className='Question'>|ID:{id}<pre> {question}</pre></h4>
         <div className='breakpoint'></div>
         {file && file!=="null" && <img className="image" src={file} alt="logo..." />}
         {type === 'closed' && <div className='Answers'>
