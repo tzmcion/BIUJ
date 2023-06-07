@@ -2,6 +2,13 @@ $bgColor: rgb(43, 151, 55);
 $textHoverColor: white;
 $debug: false;
 
+pre{
+    white-space: pre-wrap;
+    word-wrap: none;
+    height: fit-content;
+    width: 100%;
+}
+
 .QuestionCard{
     font-family: 'Montserrat';
     width:1000px;
