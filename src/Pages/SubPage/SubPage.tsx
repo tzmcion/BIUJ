@@ -113,6 +113,8 @@ export default function SubPage():ReactElement {
             table:id,
             file:reader.result
           }
+          axios.defaults.headers.post['Content-Type'] ='application/json';
+          axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
           axios.post("https://serverbi.herokuapp.com/add",data).then(res=>{
             console.log("data added!");
           }).catch(err =>{
@@ -132,7 +134,9 @@ export default function SubPage():ReactElement {
           table:id,
           file:null
         }
-        axios.post("https://serverbi.herokuapp.com/add",data).then(res=>{
+        axios.defaults.headers.post['Content-Type'] ='application/json';
+        axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+        axios.post("https://serverbi.herokuapp.com/add",data,{}).then(res=>{
           console.log("data added!");
         }).catch(err =>{
           console.log('server rejected adding question, attempting again');
