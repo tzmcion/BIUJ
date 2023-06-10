@@ -44,7 +44,7 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
     }
 
     const handleCheck = ():void =>{
-        let compleated = localStorage.getItem("compleated");
+        let compleated = localStorage.getItem(`compleated_${database}`);
         if(compleated){
             const arr = JSON.parse(compleated);
             if(arr){
@@ -52,9 +52,9 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
                     arr.push(id);
                 }
             }
-            localStorage.setItem("compleated",JSON.stringify(arr));
+            localStorage.setItem(`compleated_${database}`,JSON.stringify(arr));
         }else{
-            localStorage.setItem("compleated",JSON.stringify([]));
+            localStorage.setItem(`compleated_${database}`,JSON.stringify([]));
         }
         setIsChecked(true);
     }
