@@ -200,8 +200,8 @@ export default function SubPage():ReactElement {
               handleRandom={handleRandom}
               />
         }
-        <Show  first={first_id} length={max} handleClick={handle_swap}/>
-        <button className='RESET' onClick={()=>{localStorage.setItem("compleated",JSON.stringify([]))}}>RESET PROGRESS</button>
+        {data && id && <Show  first={first_id} length={max} current={data.id} database={id} handleClick={handle_swap}/>}
+        <button className='RESET' onClick={()=>{localStorage.setItem(`compleated_${id}`,JSON.stringify([]))}}>RESET PROGRESS</button>
               <AddQuestion handleAdd={handleAdd}/>
       </div>
     </div>

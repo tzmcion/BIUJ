@@ -51,17 +51,17 @@ export default function AddQuestion({handleAdd}:AddProps):ReactElement {
         let new_answers:Array<string> = [];
         switch(event.target.name){
             case "username":
-                setUserName(event.target.value);
+                setUserName(event.target.value.replace('\'',' '));
                 break;
             case "question":
-                setQuestion(event.target.value);
+                setQuestion(event.target.value.replace('\'',' '));
                 break;
             case "answer1":
                 answers.map((ans,index) =>{
                     if(index !== 0){
                     new_answers.push(ans);}
                     else{
-                    new_answers.push(event.target.value);
+                    new_answers.push(event.target.value.replace('\'',' '));
                     }
                     return null;
                 })
@@ -72,7 +72,7 @@ export default function AddQuestion({handleAdd}:AddProps):ReactElement {
                     if(index !== 1){
                     new_answers.push(ans);}
                     else{
-                    new_answers.push(event.target.value);
+                    new_answers.push(event.target.value.replace('\'',' '));
                     }
                     return null;
                 })
@@ -83,7 +83,7 @@ export default function AddQuestion({handleAdd}:AddProps):ReactElement {
                     if(index !== 2){
                     new_answers.push(ans);}
                     else{
-                    new_answers.push(event.target.value);
+                    new_answers.push(event.target.value.replace('\'',' '));
                     }
                     return null;
                 })
@@ -94,14 +94,14 @@ export default function AddQuestion({handleAdd}:AddProps):ReactElement {
                     if(index !== 3){
                     new_answers.push(ans);}
                     else{
-                    new_answers.push(event.target.value);
+                    new_answers.push(event.target.value.replace('\'',' '));
                     }
                     return null;
                 })
                 setAnswers(new_answers);
                 break;
             case "comment":
-                setComment(event.target.value);
+                setComment(event.target.value.replace('\'',' '));
                 break;
             default:
                 break;
@@ -114,11 +114,14 @@ export default function AddQuestion({handleAdd}:AddProps):ReactElement {
             if(question.length > 0){
                 if(form.watch()["type"] === "closed"){
                     if(answers[0].length > 0 && answers[1].length > 0 && answers[2].length > 0 && answers[3].length > 0){
+                        if(answers[0].length <255 && answers[1].length <255 && answers[2].length <255 && answers[3].length <255){
                         handleAdd(question,answers,userName,comment,form.watch()['type'],right_answer,selectedFile);
                         clearAll();
-                        //Feedback
+                        }else{
+                            alert("ERROR:: varchar(255):: Pojedyńcza odpowiedź nie może mieć więcej niż 255 znaków");
+                        }
                     }else{
-                        alert("Nie wszystkie odpowiedzi są uzupełnione...")
+                        alert("Nie wszystkie odpowiedzi są uzupełnione...");
                     }
                 }else{
                     handleAdd(question,answers,userName,comment,form.watch()['type'],right_answer,selectedFile);
