@@ -41,7 +41,7 @@ export default function Home() {
             <Card name="Ilościowa BK" test_date={new Date("Jun 19, 2023")} to='ibk' img={[cells,cells_gif]} send_name='ibk'/>
             <Card name="Programowanie" test_date={new Date("Jun 18, 2023")} to='programowanie' img={[programming,coding]} send_name='programowanie'/>
             <Card name="Analiza" test_date={new Date("Jun 21, 2023")} to='analiza' img={[math_png,calculus]} send_name='analiza'/>
-            <Card name="B Ewolucyjna" test_date={new Date("Jun 23, 2023")} to='ewolucyjna' img={[dna_png,dna_gif]} send_name='ewolucyjna'/>
+            <Card name="B Ewolucyjna" test_date={new Date("Jun 26, 2023")} to='ewolucyjna' img={[dna_png,dna_gif]} send_name='ewolucyjna'/>
             <Card name="GNU/LINUX" test_date={new Date("Jun 16, 2023")} to='gnu' img={[linux,linux]} send_name='gnu'/>
         </div>
         {/* <Footer/> */}

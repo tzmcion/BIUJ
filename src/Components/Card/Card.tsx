@@ -20,7 +20,10 @@ export default function Card({name,test_date,to,img,send_name}:props):ReactEleme
         let date:number = new Date().getTime();
         let distance:number = test_date.getTime() - date;
         let days = Math.floor(distance / (1000*60*60*24));
-        return `${days}dni`;
+        if(days+1 < 0){
+            return 'FINITO 😁';
+        }
+        return `${days+1}dni`;
     }
 
     useEffect(()=>{
