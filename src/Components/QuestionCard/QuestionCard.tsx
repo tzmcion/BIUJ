@@ -98,7 +98,11 @@ export default function QuestionCard({type,answers,correct_answer,comment,questi
         {type !== "load" && type!=="error" && <><h5>Dodane przez: <span className={`${user === "@GUAdmin" ? "red" : "green"}`}>{user === "@GUAdmin" ? "Admin" : user}</span></h5>
         <h4 className='Question'>|ID:{id}<pre> {question}</pre></h4>
         <div className='breakpoint'></div>
-        {file && file!=="null" && <img className="image" src={file} alt="logo..." />}
+        {file && file!=="null" && 
+        <div className="image">
+            <img src={file} alt="logo..." />
+            <img className='big_img' src={file} alt="logo... not logo" />
+        </div>}
         {type === 'closed' && <div className='Answers'>
             {renderAnswers()}
         </div>}
