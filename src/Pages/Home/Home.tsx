@@ -4,6 +4,7 @@ import Header from '../../Components/Header/Header'
 import Card from '../../Components/Card/Card'
 import useTitle from '../../Components/useTitle'
 
+import summer_gif from '../../Assets/summer_gif.gif'
 import microscope from '../../Assets/exam.png'
 import biochem from '../../Assets/biochem.gif'
 import cells from '../../Assets/stem-cell.png'
@@ -24,7 +25,12 @@ export default function Home() {
 
   return (
     <div style={{paddingBottom:"80px"}}>
-        <Header/>
+        <div className='summer_break'>
+            <h3>Przerwa wakacyjna</h3>
+            <h4>Dla uczestników kampani wrześniowej stronka od 1 września będzie chodzić</h4>
+            <img src={summer_gif} alt="summer" />
+        </div>
+        {/* <Header/>
         <div className='Title'>
                 <div className='Data'>
                     <h3>
@@ -43,7 +49,7 @@ export default function Home() {
             <Card name="Analiza" test_date={new Date("Jun 21, 2023")} to='analiza' img={[math_png,calculus]} send_name='analiza'/>
             <Card name="B Ewolucyjna" test_date={new Date("Jun 26, 2023")} to='ewolucyjna' img={[dna_png,dna_gif]} send_name='ewolucyjna'/>
             <Card name="GNU/LINUX" test_date={new Date("Jun 16, 2023")} to='gnu' img={[linux,linux]} send_name='gnu'/>
-        </div>
+        </div> */}
         {/* <Footer/> */}
     </div>
   )
