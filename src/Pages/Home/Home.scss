@@ -46,3 +46,27 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.summer_break{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f3f0ea;
+    position: absolute;
+    top:0px;
+    h3,h4{
+        text-align: center;
+    }
+    h3{
+        font-size: 32px;
+    }
+    h4{
+        font-size: 20px;
+    }
+    img{
+        margin: 10px auto;
+    }
+}
